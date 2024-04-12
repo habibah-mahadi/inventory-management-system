@@ -15,9 +15,42 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        User::factory()->createMany([
+            [
+                'id' => 1,
+                'name' => 'Test User',
+                'email' => 'test@test.com',
+                'password' => bcrypt('pass123.')
+            ],
+            [
+                'id' => 2,
+                'name' => fake()->name(),
+                'email' => fake()->unique()->safeEmail(),
+                'password' => bcrypt('pass123.')
+            ],
+            [
+                'id' => 3,
+                'name' => fake()->name(),
+                'email' => fake()->unique()->safeEmail(),
+                'password' => bcrypt('pass123.')
+            ],
+            [
+                'id' => 4,
+                'name' => fake()->name(),
+                'email' => fake()->unique()->safeEmail(),
+                'password' => bcrypt('pass123.')
+            ],
+            [
+                'id' => 5,
+                'name' => fake()->name(),
+                'email' => fake()->unique()->safeEmail(),
+                'password' => bcrypt('pass123.')
+            ],
         ]);
+
+        $this->call([
+            ItemSeeder::class
+        ]);
+
     }
 }

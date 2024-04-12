@@ -1,4 +1,10 @@
+
+
 <x-app-layout>
+    <x-slot:title>
+        Create New Item
+    </x-slot>
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Create Item') }}
@@ -6,7 +12,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <form action="{{ route('item.store') }}" method="POST">
                 @csrf
                 <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -41,10 +47,10 @@
                             <textarea id="description" name="description" rows="3"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
                         </div>
-                        <p class="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about the item.</p>
+                        <p class="mt-3 text-sm leading-6 text-gray-600">Write the item specifications.</p>
                     </div>
                 </div>
-                <button type="submit" class="rounded-md bg-white px-6 py-3 mt-3">Submit</button>
+                <button type="submit" class="btn-primary mt-6">Submit</button>
             </form>
         </div>
     </div>

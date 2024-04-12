@@ -3,8 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+        <title>Laravel Inventory Management System</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -15,7 +15,6 @@
     </head>
     <body class="font-sans antialiased dark:bg-black dark:text-white/50">
         <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
-            <img id="background" class="absolute -left-20 top-0 max-w-[877px]" src="https://laravel.com/assets/img/welcome/background.svg" />
             <div class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
                 <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
                     <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-2">
@@ -27,7 +26,7 @@
                             <nav class="-mx-3 flex flex-1 justify-end">
                                 @auth
                                     <a
-                                        href="{{ url('/dashboard') }}"
+                                        href="{{ route('item.index') }}"
                                         class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                                     >
                                         Dashboard
@@ -54,78 +53,98 @@
                     </header>
 
                     <main class="mt-6">
+                        @auth
                         <div>
-                            <a href="{{ route('item.create') }}" class="rounded p-3 bg-[#FF2D20]/10">
+                            <a href="{{ route('item.create') }}" class="rounded p-3 bg-[#FF2D20]/10 hover:bg-red-300 ease-in duration-200 hover:text-white">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 inline">
                                     <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
                                 </svg>                                  
                                 Add New Item
                             </a>
                         </div>
+                        @endauth
                         <div class="grid grid-cols-2 gap-4 mt-6">
-
                             {{-- List of items --}}
                             <div>
                                 @foreach ($items as $item)
                                 <a
-                                    href="https://laracasts.com"
-                                    class="flex items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]"
+                                    href="{{ route('welcome.view-item', $item) }}"
+                                    class="flex items-start gap-4 rounded-lg bg-white p-4 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] mb-5 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]"
                                 >
-                                    <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10 sm:size-16">
-                                        {{-- <svg class="size-5 sm:size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="#FF2D20"><path d="M24 8.25a.5.5 0 0 0-.5-.5H.5a.5.5 0 0 0-.5.5v12a2.5 2.5 0 0 0 2.5 2.5h19a2.5 2.5 0 0 0 2.5-2.5v-12Zm-7.765 5.868a1.221 1.221 0 0 1 0 2.264l-6.626 2.776A1.153 1.153 0 0 1 8 18.123v-5.746a1.151 1.151 0 0 1 1.609-1.035l6.626 2.776ZM19.564 1.677a.25.25 0 0 0-.177-.427H15.6a.106.106 0 0 0-.072.03l-4.54 4.543a.25.25 0 0 0 .177.427h3.783c.027 0 .054-.01.073-.03l4.543-4.543ZM22.071 1.318a.047.047 0 0 0-.045.013l-4.492 4.492a.249.249 0 0 0 .038.385.25.25 0 0 0 .14.042h5.784a.5.5 0 0 0 .5-.5v-2a2.5 2.5 0 0 0-1.925-2.432ZM13.014 1.677a.25.25 0 0 0-.178-.427H9.101a.106.106 0 0 0-.073.03l-4.54 4.543a.25.25 0 0 0 .177.427H8.4a.106.106 0 0 0 .073-.03l4.54-4.543ZM6.513 1.677a.25.25 0 0 0-.177-.427H2.5A2.5 2.5 0 0 0 0 3.75v2a.5.5 0 0 0 .5.5h1.4a.106.106 0 0 0 .073-.03l4.54-4.543Z"/></g></svg> --}}
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 sm:size-6">
-                                            <g fill="#FF2D20">
-                                                <path d="M3.375 3C2.339 3 1.5 3.84 1.5 4.875v.75c0 1.036.84 1.875 1.875 1.875h17.25c1.035 0 1.875-.84 1.875-1.875v-.75C22.5 3.839 21.66 3 20.625 3H3.375Z" />
-                                                <path fill-rule="evenodd" d="m3.087 9 .54 9.176A3 3 0 0 0 6.62 21h10.757a3 3 0 0 0 2.995-2.824L20.913 9H3.087Zm6.163 3.75A.75.75 0 0 1 10 12h4a.75.75 0 0 1 0 1.5h-4a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
-                                            </g>
-                                        </svg>                                                                           
-                                    </div>
-                                    <div class="pt-3 sm:pt-5 flex-1">
+                                    <div class="flex-1">
                                         <h2 class="text-xl font-semibold text-black dark:text-white">{{ $item->name }}</h2>
-    
-                                        <p class="mt-4 text-sm/relaxed">
-                                            {{ $item->description }}
-                                        </p>
+                                        
+                                        @if ($item->description != null)
+                                            <p class="mt-2 text-sm/relaxed">
+                                                {{ Str::words($item->description, 10) }}
+                                            </p>
+                                        @endif
                                     </div>
                                     
                                     <svg class="size-6 shrink-0 self-center stroke-[#FF2D20]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"/></svg>
                                 </a>
                                 @endforeach
+                                <div class="mt-6">
+                                    {{ $items->links() }}
+                                </div>
                             </div>
 
                             {{-- Show the item --}}
+                            @isset ($selectedItem)
                             <div class="rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]">
                                 <div class="pt-3 sm:pt-5 flex-1">
-                                    <h2 class="text-xl font-semibold text-black dark:text-white">ITEM_NAME</h2>
-
-                                    <p class="mt-4 text-sm/relaxed">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse perspiciatis, cupiditate voluptatum, soluta laborum, animi eum earum consequuntur quia delectus provident fugit magnam atque facilis inventore sint eos nobis. Optio!
+                                    <div class="flex gap-4 items-center">
+                                        <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10 sm:size-16">
+                                            {{-- <svg class="size-5 sm:size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="#FF2D20"><path d="M24 8.25a.5.5 0 0 0-.5-.5H.5a.5.5 0 0 0-.5.5v12a2.5 2.5 0 0 0 2.5 2.5h19a2.5 2.5 0 0 0 2.5-2.5v-12Zm-7.765 5.868a1.221 1.221 0 0 1 0 2.264l-6.626 2.776A1.153 1.153 0 0 1 8 18.123v-5.746a1.151 1.151 0 0 1 1.609-1.035l6.626 2.776ZM19.564 1.677a.25.25 0 0 0-.177-.427H15.6a.106.106 0 0 0-.072.03l-4.54 4.543a.25.25 0 0 0 .177.427h3.783c.027 0 .054-.01.073-.03l4.543-4.543ZM22.071 1.318a.047.047 0 0 0-.045.013l-4.492 4.492a.249.249 0 0 0 .038.385.25.25 0 0 0 .14.042h5.784a.5.5 0 0 0 .5-.5v-2a2.5 2.5 0 0 0-1.925-2.432ZM13.014 1.677a.25.25 0 0 0-.178-.427H9.101a.106.106 0 0 0-.073.03l-4.54 4.543a.25.25 0 0 0 .177.427H8.4a.106.106 0 0 0 .073-.03l4.54-4.543ZM6.513 1.677a.25.25 0 0 0-.177-.427H2.5A2.5 2.5 0 0 0 0 3.75v2a.5.5 0 0 0 .5.5h1.4a.106.106 0 0 0 .073-.03l4.54-4.543Z"/></g></svg> --}}
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 sm:size-6">
+                                                <g fill="#FF2D20">
+                                                    <path d="M3.375 3C2.339 3 1.5 3.84 1.5 4.875v.75c0 1.036.84 1.875 1.875 1.875h17.25c1.035 0 1.875-.84 1.875-1.875v-.75C22.5 3.839 21.66 3 20.625 3H3.375Z" />
+                                                    <path fill-rule="evenodd" d="m3.087 9 .54 9.176A3 3 0 0 0 6.62 21h10.757a3 3 0 0 0 2.995-2.824L20.913 9H3.087Zm6.163 3.75A.75.75 0 0 1 10 12h4a.75.75 0 0 1 0 1.5h-4a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+                                                </g>
+                                            </svg>                                                                           
+                                        </div>
+                                        <h2 class="text-xl font-semibold text-black dark:text-white">{{ $selectedItem->name }}</h2>
+                                    </div>
+                                    @if ($selectedItem->description != null)
+                                    <p class="mt-4">
+                                        {!! nl2br($selectedItem->description) !!}
                                     </p>
+                                    @endif
                                 </div>
 
                                 <div class="grid grid-cols-2 gap-4 mt-6">
                                     <div>
-                                        <small>Price</small>
+                                        <p class="text-sm/relaxed">Price</p>
+                                        <p class="text-lg">BND {{ $selectedItem->price }}</p>
                                     </div>
                                     <div>
-                                        <small>Quantity</small>
+                                        <p class="text-sm/relaxed">Quantity</p>
+                                        <p class="text-lg">{{ $selectedItem->quantity }}</p>
                                     </div>
                                     <div>
-                                        <small>Last Updated By</small>
+                                        <p class="text-sm/relaxed">Last Updated By</p>
+                                        <p class="text-lg">{{ $selectedItem->user->name }}</p>
                                     </div>
                                     <div>
-                                        <small>Updated On</small>
+                                        <p class="text-sm/relaxed">Updated On</p>
+                                        <p class="text-lg">{{ $selectedItem->updated_at->format('d M Y') }}</p>
                                     </div>
                                     <div>
-                                        <small>Created On</small>
+                                        <p class="text-sm/relaxed">Created On</p>
+                                        <p class="text-lg">{{ $selectedItem->created_at->format('d M Y') }}</p>
                                     </div>
                                 </div>
-
+                                @auth
                                 <div class="mt-6 flex justify-end gap-6">
-                                    <a href="">Edit</a>
-                                    <a href="">Delete</a>
+                                    <a href="{{ route('item.edit', $selectedItem) }}">Edit</a>
                                 </div>
+                                @endauth
                             </div>
+                            @else 
+                            <div class="flex justify-center">
+                                <h1 class="text-lg">Select an item</h1>
+                            </div>
+                            @endisset
                         </div>
                     </main>
 
