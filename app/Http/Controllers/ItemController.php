@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ItemController extends Controller
 {
     public function welcome(Item $item=null) {
-        $items = Item::simplePaginate(5);
+        $items = Item::orderBy('id', 'desc')->simplePaginate(5);
         return view('welcome', ['items' => $items, 'selectedItem' => $item]);
     }
 

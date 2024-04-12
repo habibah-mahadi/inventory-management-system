@@ -7,10 +7,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ItemController::class, 'welcome'])->name('welcome');
 Route::get('/view-item/{item?}', [ItemController::class, 'welcome'])->name('welcome.view-item');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::resource('item', ItemController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -27,5 +23,3 @@ require __DIR__.'/auth.php';
 // Route::get('/item/{id}/edit', [ItemController::class, 'edit'])->name('item.edit');
 // Route::put('/item/{id}', [ItemController::class, 'update'])->name('item.update');
 // Route::delete('/item/{id}', [ItemController::class, 'destroy'])->name('item.destroy');
-
-// Route::resource('item', ItemController::class);
